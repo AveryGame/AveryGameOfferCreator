@@ -2,6 +2,7 @@ using System.Text.Json;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http;
+using Microsoft.VisualBasic;
 
 namespace AveryGameOfferCreator
 {
@@ -147,7 +148,7 @@ namespace AveryGameOfferCreator
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                DefaultResponse stuff = System.Text.Json.JsonSerializer.Deserialize<DefaultResponse>(result);
+                DefaultResponse? stuff = System.Text.Json.JsonSerializer.Deserialize<DefaultResponse>(result);
                 if (stuff.code == 200)
                 {
                     MessageBox.Show($"Successfully created offer '{offer.offerName}' on backend.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -182,6 +183,60 @@ namespace AveryGameOfferCreator
             RewardDictionary.Clear();
             SelectedKey = "";
             comboBox1.SelectedItem = "";
+        }
+
+        private async void getFieldsFromBackendToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string Input = Interaction.InputBox("Offer Name", "Get Fields From Backend", "", -1, -1);
+
+            if (string.IsNullOrWhiteSpace(Input))
+                return;
+
+            HttpClient _client = new();
+            string BaseURL = Helper.GetBaseURL();
+            var result = await _client.GetStringAsync(BaseURL + "api/v1/game/offer/" + Input);
+            OfferResponse? response = System.Text.Json.JsonSerializer.Deserialize<OfferResponse>(result);
+
+            if (response.code == 200)
+            {
+                StatRewardCheck.Enabled = false;
+                StatName.Enabled = false;
+                StatValue.Enabled = false;
+                MicroChecked.Enabled = false;
+                StatName.Text = "";
+                StatValue.Text = "";
+                numericUpDown1.Value = 0;
+                textBox1.Text = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
+                MicroReward.Value = 0;
+                checkBox1.Checked = false;
+                checkBox2.Checked = false;
+                comboBox1.Items.Clear();
+                RewardDictionary.Clear();
+                SelectedKey = "";
+                comboBox1.SelectedItem = "";
+
+                Offer offer = response.offer;
+                textBox2.Text = offer.offerName;
+                textBox3.Text = offer.redemptionMessage;
+                checkBox1.Checked = offer.promotionalOffer;
+                textBox1.Text = offer.promotionalCode;
+                checkBox2.Checked = offer.microtransactionalRequirement;
+                numericUpDown1.Value = offer.cost;
+
+                foreach (var reward in offer.rewards)
+                {
+                    RewardDictionary.Add(reward.rewardName, reward);
+                    comboBox1.Items.Add(reward.rewardName);
+                    comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
+                    SelectedKey = RewardDictionary.Keys.ElementAt(comboBox1.SelectedIndex);
+                }
+            }
+            else
+            {
+                MessageBox.Show(response.message, "Backend Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

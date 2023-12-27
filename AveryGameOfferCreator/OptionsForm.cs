@@ -92,7 +92,7 @@ namespace AveryGameOfferCreator
                     MessageBox.Show("An unknown error has occurred.", "Backend Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException)
             {
                 MessageBox.Show("Connection to backend service failed.", "Backend Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -120,7 +120,7 @@ namespace AveryGameOfferCreator
                 AuthenticateAdminResponse stuff = JsonSerializer.Deserialize<AuthenticateAdminResponse>(result);
                 if (stuff.code == 200)
                 {
-                    MessageBox.Show($"Authenticated successfully. Key: {stuff.key}, User ID: {stuff.userId}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Authenticated successfully. User ID: {stuff.userId}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

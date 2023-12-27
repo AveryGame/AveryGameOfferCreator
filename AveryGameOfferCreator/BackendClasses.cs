@@ -49,5 +49,10 @@ namespace AveryGameOfferCreator
     {
         public Offer offer { get; set; }
     }
+
+    internal class OfferResponse : DefaultResponse
+    {
+        public Offer offer { get; set; }
+    }
         
 }

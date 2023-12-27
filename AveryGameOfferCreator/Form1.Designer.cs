@@ -59,6 +59,7 @@
             this.resetAllFieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.getFieldsFromBackendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MicroReward)).BeginInit();
@@ -327,7 +328,8 @@
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uploadOfferToBackendToolStripMenuItem,
             this.copyOfferPayloadToClipboardToolStripMenuItem,
-            this.resetAllFieldsToolStripMenuItem});
+            this.resetAllFieldsToolStripMenuItem,
+            this.getFieldsFromBackendToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -375,6 +377,13 @@
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // getFieldsFromBackendToolStripMenuItem
+            // 
+            this.getFieldsFromBackendToolStripMenuItem.Name = "getFieldsFromBackendToolStripMenuItem";
+            this.getFieldsFromBackendToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.getFieldsFromBackendToolStripMenuItem.Text = "Get Fields from Backend";
+            this.getFieldsFromBackendToolStripMenuItem.Click += new System.EventHandler(this.getFieldsFromBackendToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -431,5 +440,6 @@
         private Label label5;
         private CheckBox StatRewardCheck;
         private ToolStripMenuItem resetAllFieldsToolStripMenuItem;
+        private ToolStripMenuItem getFieldsFromBackendToolStripMenuItem;
     }
 }
